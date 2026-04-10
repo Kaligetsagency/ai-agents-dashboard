@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Commerce Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden-view { display: none; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans">
+    <div class="min-h-screen flex flex-col md:flex-row">
+        
+        <nav class="w-full md:w-64 bg-white border-r p-4 flex flex-col gap-2">
+            <h1 class="font-bold text-xl mb-6 text-indigo-600">AI Commerce Hub</h1>
+            <button id="nav-photo" class="nav-btn bg-indigo-50 text-indigo-700 p-3 rounded-lg text-left font-medium" onclick="switchTab('photo')">Product Photos</button>
+            <button id="nav-ads" class="nav-btn hover:bg-gray-100 p-3 rounded-lg text-left font-medium" onclick="switchTab('ads')">Ad Recreator</button>
+            <button id="nav-leads" class="nav-btn hover:bg-gray-100 p-3 rounded-lg text-left font-medium" onclick="switchTab('leads')">Social Leads</button>
+        </nav>
 
+        <main class="flex-1 p-6 md:p-10">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border p-6">
+                
+                <div id="view-photo" class="agent-view">
+                    <h2 class="text-2xl font-bold mb-4">AI Product Photographer</h2>
+                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-center mb-6 text-gray-500">Upload Raw Image</div>
+                    <button class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Generate Pro Photos</button>
+                </div>
+
+                <div id="view-ads" class="agent-view hidden-view">
+                    <h2 class="text-2xl font-bold mb-4">Facebook Ad Thief</h2>
+                    <input type="text" id="competitor-input" placeholder="Competitor Brand Name" class="w-full p-3 border rounded-lg mb-4">
+                    <button onclick="stealAds()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Analyze & Recreate</button>
+                    <div id="ad-results" class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700"></div>
+                </div>
+
+                <div id="view-leads" class="agent-view hidden-view">
+                    <h2 class="text-2xl font-bold mb-4">Social Lead Generator</h2>
+                    <input type="text" id="lead-input" placeholder="Keyword (e.g. 'best organic coffee')" class="w-full p-3 border rounded-lg mb-4">
+                    <button onclick="draftReply()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Draft AI Reply</button>
+                    <div id="lead-results" class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
