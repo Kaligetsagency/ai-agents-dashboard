@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .hidden-view { display: none; }
+        .active-btn { background-color: #f0fdf4; color: #166534; font-weight: 600; }
+        .result-card { border: 1px solid #e5e7eb; border-radius: 0.75rem; padding: 1rem; background-color: #f9fafb; margin-top: 1rem; }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
@@ -14,9 +16,10 @@
         
         <nav class="w-full md:w-64 bg-white border-r p-4 flex flex-col gap-2">
             <h1 class="font-bold text-xl mb-6 text-indigo-600">AI Commerce Hub</h1>
-            <button id="nav-photo" class="nav-btn bg-indigo-50 text-indigo-700 p-3 rounded-lg text-left font-medium" onclick="switchTab('photo')">Product Photos</button>
+            <button id="nav-photo" class="nav-btn p-3 rounded-lg text-left font-medium active-btn" onclick="switchTab('photo')">Product Photos</button>
             <button id="nav-ads" class="nav-btn hover:bg-gray-100 p-3 rounded-lg text-left font-medium" onclick="switchTab('ads')">Ad Recreator</button>
             <button id="nav-leads" class="nav-btn hover:bg-gray-100 p-3 rounded-lg text-left font-medium" onclick="switchTab('leads')">Social Leads</button>
+            <button id="nav-influencer" class="nav-btn hover:bg-gray-100 p-3 rounded-lg text-left font-medium" onclick="switchTab('influencer')">Influencer Ad Gen</button>
         </nav>
 
         <main class="flex-1 p-6 md:p-10">
@@ -24,22 +27,48 @@
                 
                 <div id="view-photo" class="agent-view">
                     <h2 class="text-2xl font-bold mb-4">AI Product Photographer</h2>
-                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-10 text-center mb-6 text-gray-500">Upload Raw Image</div>
-                    <button class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Generate Pro Photos</button>
+                    
+                    <label class="block mb-2 font-medium">1. Upload Product Image:</label>
+                    <input type="file" id="photo-input" class="w-full p-2 border rounded-lg mb-4" accept="image/*">
+                    
+                    <label class="block mb-2 font-medium">2. Describe Vibe:</label>
+                    <input type="text" id="photo-vibe" placeholder="Desired scene (e.g., 'on a marble table with morning sunlight')" class="w-full p-3 border rounded-lg mb-4">
+                    
+                    <button id="gen-photo-btn" onclick="generatePhoto()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Generate Pro Photo</button>
+                    <div id="photo-results" class="mt-4 text-center"></div>
                 </div>
 
                 <div id="view-ads" class="agent-view hidden-view">
                     <h2 class="text-2xl font-bold mb-4">Facebook Ad Thief</h2>
                     <input type="text" id="competitor-input" placeholder="Competitor Brand Name" class="w-full p-3 border rounded-lg mb-4">
-                    <button onclick="stealAds()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Analyze & Recreate</button>
-                    <div id="ad-results" class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700"></div>
+                    <button onclick="stealAds()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Analyze & Rewrite Ads</button>
+                    
+                    <div id="ad-results" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
 
                 <div id="view-leads" class="agent-view hidden-view">
                     <h2 class="text-2xl font-bold mb-4">Social Lead Generator</h2>
                     <input type="text" id="lead-input" placeholder="Keyword (e.g. 'best organic coffee')" class="w-full p-3 border rounded-lg mb-4">
                     <button onclick="draftReply()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Draft AI Reply</button>
-                    <div id="lead-results" class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700"></div>
+                    <div id="lead-results" class="mt-4 p-4 bg-gray-50 rounded-lg text-sm text-gray-700 whitespace-pre-wrap"></div>
+                </div>
+
+                <div id="view-influencer" class="agent-view hidden-view">
+                    <h2 class="text-2xl font-bold mb-4">Influencer Ad Gen</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block mb-2 font-medium">1. Influencer Face:</label>
+                            <input type="file" id="influencer-input" class="w-full p-2 border rounded-lg" accept="image/*">
+                        </div>
+                        <div>
+                            <label class="block mb-2 font-medium">2. Product Image:</label>
+                            <input type="file" id="product-input" class="w-full p-2 border rounded-lg" accept="image/*">
+                        </div>
+                    </div>
+                    
+                    <button id="gen-influencer-btn" onclick="generateInfluencerPhoto()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-semibold hover:bg-indigo-700">Generate Influencer Ad</button>
+                    <div id="influencer-results" class="mt-4 text-center"></div>
                 </div>
 
             </div>
